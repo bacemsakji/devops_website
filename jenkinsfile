@@ -1,16 +1,30 @@
-pipeline{
+pipeline {
     agent any
+
     stages {
-        stage("Build") {
+
+        stage('Checkout') {
             steps {
-                echo "Building..."
+                checkout scm
             }
         }
-        stage("checkout") {
-            steps{
-                checkout scm
+
+        stage('Build') {
+            steps {
+                bat 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                bat 'docker build -t ecommerce-app .'
             }
         }
     }
 }
-    
