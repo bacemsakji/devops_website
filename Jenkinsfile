@@ -11,19 +11,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('Docker Build') {
             steps {
-                bat 'docker build -t ecommerce-app .'
+                sh 'docker build -t ecommerce-app .'
             }
         }
     }
